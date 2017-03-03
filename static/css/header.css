@@ -1,0 +1,175 @@
+@-webkit-keyframes cursor
+{
+0.0% 
+{
+  color : rgba(0,0,0,0.0);
+}
+
+50.0% 
+{
+  color : #f48fb1;
+}
+
+100.0% 
+{
+  color : rgba(0,0,0,0.0);
+}
+
+}
+
+@-moz-keyframes cursor
+{
+0.0% 
+{
+  color : rgba(0,0,0,0.0);
+}
+
+50.0% 
+{
+  color : #f48fb1;
+}
+
+100.0% 
+{
+  color : rgba(0,0,0,0.0);
+}
+
+}
+
+@-ms-keyframes cursor
+{
+0.0% 
+{
+  color : rgba(0,0,0,0.0);
+}
+
+50.0% 
+{
+  color : #f48fb1;
+}
+
+100.0% 
+{
+  color : rgba(0,0,0,0.0);
+}
+
+}
+
+@-o-keyframes cursor
+{
+0.0% 
+{
+  color : rgba(0,0,0,0.0);
+}
+
+50.0% 
+{
+  color : #f48fb1;
+}
+
+100.0% 
+{
+  color : rgba(0,0,0,0.0);
+}
+
+}
+
+@keyframes cursor
+{
+0.0% 
+{
+  color : rgba(0,0,0,0.0);
+}
+
+50.0% 
+{
+  color : #f48fb1;
+}
+
+100.0% 
+{
+  color : rgba(0,0,0,0.0);
+}
+
+}
+
+body > header
+{
+  display            : flex;
+  align-items        : center;
+  justify-content    : center;
+  flex-direction     : column;
+  flex-grow          : 1;
+  height             : 60px;
+  padding-left       : 10px;
+  background-color   : #e91e63;
+  color              : #f48fb1;
+  font               : 2em "clone-rounded-latin" monospace;
+  -webkit-box-shadow : 0 2px 2px 0 rgba(0,0,0,0.25);
+  -moz-box-shadow    : 0 2px 2px 0 rgba(0,0,0,0.25);
+  -ms-box-shadow     : 0 2px 2px 0 rgba(0,0,0,0.25);
+  -o-box-shadow      : 0 2px 2px 0 rgba(0,0,0,0.25);
+  box-shadow         : 0 2px 2px 0 rgba(0,0,0,0.25);
+}
+
+.logo
+{
+  align-self          : flex-start;
+  text-space-collapse : discard;
+  display             : flex;
+}
+
+.logo > span
+{
+  color  : #880e4f;
+  margin : 0 5px 0 5px;
+}
+
+.logo-nospace
+{
+  margin : 0 0 0 0;
+}
+
+#logo-command
+{
+  margin : 0 0 0 0;
+  color  : #f48fb1;
+}
+
+#logo-command:focus
+{
+  outline-style : none;
+}
+
+#logo-command::selection
+{
+  background-color : #880e4f;
+}
+
+.logo > *.logo-cursor
+{
+  margin                            : 0 0 0 0;
+  -webkit-animation-name            : cursor;
+  -moz-animation-name               : cursor;
+  -ms-animation-name                : cursor;
+  -o-animation-name                 : cursor;
+  animation-name                    : cursor;
+  -webkit-animation-duration        : 1.0s;
+  -moz-animation-duration           : 1.0s;
+  -ms-animation-duration            : 1.0s;
+  -o-animation-duration             : 1.0s;
+  animation-duration                : 1.0s;
+  -webkit-animation-timing-function : steps(1, end);
+  -moz-animation-timing-function    : steps(1, end);
+  -ms-animation-timing-function     : steps(1, end);
+  -o-animation-timing-function      : steps(1, end);
+  animation-timing-function         : steps(1, end);
+  -webkit-animation-iteration-count : infinite;
+  -moz-animation-iteration-count    : infinite;
+  -ms-animation-iteration-count     : infinite;
+  -o-animation-iteration-count      : infinite;
+  animation-iteration-count         : infinite;
+}
+
+
+/* Generated with Clay, http://fvisser.nl/clay */
