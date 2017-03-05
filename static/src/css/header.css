@@ -1,0 +1,64 @@
+:root {
+  --header-fg: google-color(pink, 200);
+  --header-bg: google-color(pink, 500);
+  --header-accent: google-color(pink, 900);
+  --header-height: 4rem;
+}
+
+@keyframes cursor {
+  0%,
+  100% {
+    color: transparent;
+  }
+  50% {
+    color: var(--header-fg);
+  }
+}
+
+body > header {
+  height: var(--header-height);
+  padding-left: 0.5em;
+
+  background-color: var(--header-bg);
+  box-shadow: 0 2px 2px 0 color(black alpha(25%));
+
+  font-size: 2rem;
+  font-family: "clone-rounded-latin", monospace;
+  font-weight: 200;
+}
+
+.header {
+  display: inline-block;
+  line-height: var(--header-height);
+
+  color: var(--header-fg);
+}
+
+.header-lambda, .header-at, .header-pathsep, .header-prompt {
+  color: var(--header-accent);
+}
+
+@media (max-width: 512px) {
+  body > header {
+    height: 3rem;
+    font-size: 1.5rem;
+  }
+
+  .header {
+    line-height: 3rem;
+  }
+
+  .header-username, .header-at, .header-command
+  {
+    display: none;
+  }
+}
+
+
+.header-command::after {
+  content: "\258c";
+
+  margin-left: 0.125em;
+
+  animation: cursor 1s step-end infinite;
+}
