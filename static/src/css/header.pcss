@@ -1,10 +1,8 @@
-@use postcss-cssnext;
-
 :root
 {
-    --header-fg: #F48FB1;
-    --header-bg: #E91E63;
-    --header-accent: #880E4F;
+    --header-fg: google-color(pink, 200);
+    --header-bg: google-color(pink, 500);
+    --header-accent: google-color(pink, 900);
     --header-height: 4rem;
 }
 
@@ -41,12 +39,4 @@ body > header {
     content: "\258c";
     margin-left: 0.125em;
     animation: cursor 1s step-end infinite;
-}
-
-#logo-command:focus {
-    outline-style: none;
-}
-
-#logo-command::selection {
-    background-color: #880e4f;
 }

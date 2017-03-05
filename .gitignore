@@ -23,6 +23,7 @@ cabal.project.local
 .idea/
 ideaHaskellLib/
 .ideaHaskellLib/
+node_modules/
 *.iml
 cabal.config
 .DS_Store

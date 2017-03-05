@@ -1,0 +1,19 @@
+{
+  "name": "typedrat-site",
+  "version": "0.1.0",
+  "license": "GPL-3.0",
+  "browserslist": ">5% in US",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/typedrat/typedrat-site.git"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.7.6",
+    "gulp": "^3.9.1",
+    "gulp-postcss": "^6.3.0",
+    "gulp-rename": "^1.2.2",
+    "lost": "^8.0.0",
+    "postcss-cssnext": "^2.9.0",
+    "postcss-google-color": "0.0.1"
+  }
+}
