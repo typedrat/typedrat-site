@@ -36,6 +36,10 @@ body.dark {
 }
 
 @media (max-width: 512px) {
+  body {
+    font-size: 12px;
+  }
+
   .body > aside {
     width: 100%;
     border-bottom: 1px solid;
@@ -44,7 +48,11 @@ body.dark {
   }
 }
 
-@media (min-width: 512px) and (max-width: 768px) {
+@media (min-width: 512px) and (max-width: 1024px) {
+  body {
+    font-size: 12px;
+  }
+
   .body > aside {
     lost-column: 1/4;
   }
@@ -54,13 +62,7 @@ body.dark {
   }
 }
 
-@media (max-width: 1024px) {
-  body {
-    font-size: 12px;
-  }
-}
-
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .body > aside {
     lost-column: 1/6;
   }
@@ -72,7 +74,7 @@ body.dark {
 
 .body > aside img {
   max-width: calc(100% - 1.5rem);
-  max-height: 50vh;
+  max-height: 25vh;
 
   margin-left: auto;
   margin-right: auto;

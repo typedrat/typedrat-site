@@ -2,7 +2,7 @@
   --header-fg: google-color(pink, 200);
   --header-bg: google-color(pink, 500);
   --header-accent: google-color(pink, 900);
-  --header-height: 4rem;
+  --header-height: 3.5rem;
 }
 
 @keyframes cursor {
@@ -22,7 +22,7 @@ body > header {
   background-color: var(--header-bg);
   box-shadow: 0 2px 2px 0 color(black alpha(25%));
 
-  font-size: 2rem;
+  font-size: calc(var(--header-height) / 2);
   font-family: "clone-rounded-latin", monospace;
   font-weight: 200;
 }
@@ -39,15 +39,6 @@ body > header {
 }
 
 @media (max-width: 512px) {
-  body > header {
-    height: 3rem;
-    font-size: 1.5rem;
-  }
-
-  .header {
-    line-height: 3rem;
-  }
-
   .header-username, .header-at, .header-command
   {
     display: none;
