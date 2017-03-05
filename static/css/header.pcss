@@ -1,0 +1,52 @@
+@use postcss-cssnext;
+
+:root
+{
+    --header-fg: #F48FB1;
+    --header-bg: #E91E63;
+    --header-accent: #880E4F;
+    --header-height: 4rem;
+}
+
+@keyframes cursor {
+    0%,
+    100% {
+        color: transparent;
+    }
+    50% {
+        color: var(--header-fg);
+    }
+}
+
+body > header {
+    height: var(--header-height);
+    padding-left: 0.5em;
+    background-color: var(--header-bg);
+    box-shadow: 0 2px 2px 0 color(black alpha(25%));
+    font: 2rem "clone-rounded-latin" monospace;
+    font-weight: 200;
+}
+
+.logo {
+    display: inline-block;
+    line-height: var(--header-height);
+    color: var(--header-accent);
+}
+
+.logo span {
+    color: var(--header-fg);
+}
+
+#logo-command::after {
+    content: "\258c";
+    margin-left: 0.125em;
+    animation: cursor 1s step-end infinite;
+}
+
+#logo-command:focus {
+    outline-style: none;
+}
+
+#logo-command::selection {
+    background-color: #880e4f;
+}
