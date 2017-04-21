@@ -1,12 +1,13 @@
-module Typedrat.App where
+module Typedrat.App (app) where
 
+import Database.PostgreSQL.Simple (Connection)
 import qualified Network.Wai.Middleware.Static as S
+import Typedrat.Views
+import Typedrat.Routes
 import Web.Spock
-import Web.Spock.Lucid
 
-import Typedrat.Templates.Layout
-
-app :: SpockM () () () ()
+app :: SpockM Connection () () ()
 app = do
-    get root $ lucid testLayout
-    get ("static" <//> wildcard) $ \_ -> respondMiddleware $ S.static
+    get root landing
+    get postR postView
+    get ("static" <//> wildcard) $ \_ -> respondMiddleware S.static

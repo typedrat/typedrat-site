@@ -28,3 +28,4 @@ node_modules/
 cabal.config
 .DS_Store
 .history
+.env

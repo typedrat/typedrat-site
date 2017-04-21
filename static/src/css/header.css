@@ -45,7 +45,6 @@ body > header {
   }
 }
 
-
 .header-command::after {
   content: "\258c";
 

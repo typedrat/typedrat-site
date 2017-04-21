@@ -16,18 +16,41 @@ cabal-version:       >=1.10
 executable typedrat-site
   hs-source-dirs:      app
   main-is:             Main.hs
-  other-modules:       Typedrat.Templates.Layout
+  other-modules:       Typedrat.App
+                     , Typedrat.Templates.Layout
+                     , Typedrat.Templates.PostList
+                     , Typedrat.DB.Post
+                     , Typedrat.DB.Utils
+                     , Typedrat.Routes
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
                      , text
-                     , lucid
+                     , time
+                     , dotenv
                      , wai
                      , wai-middleware-static
+                     , hvect
+                     , reroute
                      , Spock
                      , Spock-lucid
+                     , lucid
+                     , slug
+                     , pandoc
+                     , profunctors
+                     , product-profunctors
+                     , postgresql-simple
+                     , opaleye
   default-extensions:  OverloadedStrings
                      , ExtendedDefaultRules
                      , FlexibleContexts
+                     , FlexibleInstances
+                     , MultiParamTypeClasses
+                     , TypeFamilies
+                     , FunctionalDependencies
+                     , UndecidableInstances
+                     , StandaloneDeriving
+                     , DataKinds
+                     , Arrows
   default-language:    Haskell2010
 
 source-repository head

@@ -8,6 +8,7 @@
   --dark-bg: google-color(grey, 900);
 
   --accent-bg: google-color(pink, 500);
+  --accent-fg: google-color(pink, 200);
 }
 
 body {
@@ -28,6 +29,16 @@ body.light {
 body.dark {
   background-color: var(--dark-bg);
   color: var(--dark-fg);
+}
+
+.light a:visited, .dark a {
+  color: var(--accent-fg);
+  text-decoration: none;
+}
+
+.light a, .dark a:visited {
+  color: google-color(pink, 300);
+  text-decoration: none;
 }
 
 .body {
@@ -90,4 +101,22 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 200;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
+}
+
+ul.post-list {
+  list-style: none;
+  padding-left: 0;
+  overflow: scroll-x;
+}
+
+ul.post-list h1, ul.post-list h2, ul.post-list h3 {
+  font-size: 1.2em;
+}
+
+ul.post-list li {
+  padding-bottom: 0.625em;
+}
+
+ul.post-list aside {
+  font-size: 0.8em;
 }
