@@ -1,6 +1,5 @@
 module Typedrat.Templates.Layout (layout) where
 
-import Control.Monad.Morph
 import qualified Data.Text as T
 import Lucid
 import Typedrat.Types
