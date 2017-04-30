@@ -9,7 +9,9 @@
   },
   "devDependencies": {
     "autoprefixer": "^6.7.6",
+    "babel-preset-env": "^1.4.0",
     "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
     "gulp-clean-css": "^3.0.3",
     "gulp-concat": "^2.6.1",
     "gulp-postcss": "^6.3.0",

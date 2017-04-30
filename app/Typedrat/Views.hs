@@ -1,22 +1,39 @@
+{-# LANGUAGE RecordWildCards #-}
 module Typedrat.Views (landing, postView) where
 
-import Control.Monad.IO.Class
-import Database.PostgreSQL.Simple (Connection)
-import qualified Network.Wai.Middleware.Static as S
+import Control.Arrow
+import Control.Monad
+import qualified Data.Text as T
+import Data.Text.Encoding
+import Lucid
+import Network.Wai (rawPathInfo)
 import qualified Opaleye as O
-import Typedrat.DB.Post
-import Typedrat.Templates.Layout
-import Typedrat.Templates.PostList
+import Opaleye ((.===), (./==))
 import Web.Slug
-import Web.Spock
+import Web.Spock.Action
 import Web.Spock.Lucid
 
+import Typedrat.DB
+import Typedrat.Templates.Layout
+import Typedrat.Templates.Post
+import Typedrat.Templates.PostList
+import Typedrat.Types
 
-landing :: SpockActionCtx () Connection () () ()
+landing :: RatActionCtx ()
 landing = do
-    posts <- runQuery . flip O.runQuery $
-        paginate (O.desc _postTime) 10 1 postQuery
-    lucid $ layout (postList posts)
+    posts <- oQuery $ paginate (O.desc _postTime) 10 1 postQuery
+    postsWithN <- forM posts $ \p -> do
+        n <- fmap head . oQuery $ numCommentsForPost p
+        return (p, n)
 
-postView :: Integer -> Int -> Int -> Slug -> SpockActionCtx () Connection () () ()
-postView _ _ _ _ = text ""
+    lucid $ layout "~" "ls" "" (postList postsWithN)
+
+postView :: Slug -> RatActionCtx ()
+postView s = do
+    (post:_) <- oQuery $ proc () -> do
+        post@BlogPost{..} <- postQuery -< ()
+        O.restrict -< _postSlug .=== pgSlug s
+        returnA -< post
+    comments <- oQuery $ commentsForPost post
+
+    lucid $ layout "~/posts" (T.concat ["cat ", unSlug s, ".md"]) "" (postTemplate post comments)

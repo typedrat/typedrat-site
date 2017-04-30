@@ -3,7 +3,8 @@ let gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     postcss = require('gulp-postcss'),
     cleanCSS = require('gulp-clean-css'),
-    concat = require('gulp-concat');
+    concat = require('gulp-concat'),
+    babel = require('gulp-babel');
 
 gulp.task('css', function () {
     return gulp.src('./static/src/css/*.css')
@@ -12,9 +13,21 @@ gulp.task('css', function () {
         .pipe(cleanCSS())
         .pipe(concat('all.css'))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./static/out/css/'));
+        .pipe(gulp.dest('./static/out/'));
 });
 
-gulp.task('watch', ['css'], function () {
+gulp.task('js', function () {
+    return gulp.src('./static/src/js/*.js')
+        .pipe(sourcemaps.init())
+        .pipe(babel({
+
+        }))
+        .pipe(concat('all.js'))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('./static/out/'));
+});
+
+gulp.task('watch', ['css', 'js'], function () {
     gulp.watch('./static/src/css/*.css', ['css']);
+    gulp.watch('./static/src/js/*.js', ['js']);
 });

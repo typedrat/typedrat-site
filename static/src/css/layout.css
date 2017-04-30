@@ -68,7 +68,7 @@ body.dark {
     lost-column: 1/4;
   }
 
-  .body > section {
+  .body > section , .body > article  {
     lost-column: 3/4;
   }
 }
@@ -78,7 +78,7 @@ body.dark {
     lost-column: 1/6;
   }
 
-  .body > section {
+  .body > section , .body > article  {
     lost-column: 5/6;
   }
 }
@@ -92,9 +92,19 @@ body.dark {
   display: block;
 }
 
-.body > section article:not(:last-child) {
-  border-bottom: 1px solid var(--accent-bg);
+ul.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
+
+.post-list article:not(:first-of-type), #comments article:not(:first-of-type) {
+  /* TODO: Figure out why PostCSS is eating combined border styles. */
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: var(--accent-bg);
+}
+
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "clone-rounded-latin", monospace;
@@ -103,20 +113,30 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0 !important;
 }
 
-ul.post-list {
-  list-style: none;
-  padding-left: 0;
-  overflow: scroll-x;
-}
-
-ul.post-list h1, ul.post-list h2, ul.post-list h3 {
-  font-size: 1.2em;
-}
-
-ul.post-list li {
-  padding-bottom: 0.625em;
-}
-
-ul.post-list aside {
+.post-dateline
+{
   font-size: 0.8em;
+  margin-bottom: 0.5rem;
+}
+
+.post p:first-of-type
+{
+  margin-top: 0;
+}
+
+#comments h1
+{
+  font-size: 1.5em;
+}
+
+#comments article
+{
+  margin-top: 0.5rem;
+  padding-top: 0.3rem;
+}
+
+.octicon
+{
+  color: inherit;
+  margin-right: 0.25em;
 }

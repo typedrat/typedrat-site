@@ -1,41 +1,21 @@
-{-# LANGUAGE TypeFamilyDependencies #-}
-module Typedrat.DB.Utils (constantColumnUsing, Hask, DbRead, DbWrite, Null, NotNull, Req, Opt, Field, TableField, Tableable(..)) where
+module Typedrat.DB.Utils (paginate, oQuery, runPostgres, runRedis) where
 
-import Data.Profunctor
-import Opaleye
+import Data.Profunctor.Product.Default
+import qualified Database.PostgreSQL.Simple as PG
+import qualified Database.Redis as R
+import qualified Opaleye as O
+import qualified Web.Spock as S
 
-constantColumnUsing :: Constant haskell (Column pgType)
-                    -> (haskell' -> haskell)
-                    -> Constant haskell' (Column pgType')
-constantColumnUsing oldConstant f = dimap f unsafeCoerceColumn oldConstant
+import Typedrat.Types
 
-data Hask
-data DbRead
-data DbWrite
+paginate :: O.Order a -> Int -> Int -> O.Query a -> O.Query a
+paginate o n p = O.limit n . O.offset ((p - 1) * n) . O.orderBy o
 
-data Null
-data NotNull
+oQuery :: Default O.QueryRunner a b => O.Query a -> RatActionCtx [b]
+oQuery = S.runQuery . flip (O.runQuery . fst)
 
-data Req
-data Opt
+runPostgres :: (PG.Connection -> IO a) -> RatActionCtx a
+runPostgres = S.runQuery . (. fst)
 
-type family Field f a b n where
-    Field Hask   h o NotNull = h
-    Field Hask   h o Null    = Maybe h
-    Field DbRead h o NotNull = Column o
-    Field DbRead h o Null    = Column (Nullable o)
-
-type family TableField f a b n req where
-    TableField Hask    h o n b   = Field Hask h o n
-    TableField DbRead  h o n b   = Field DbRead h o n
-    TableField DbWrite h o n Req = Field DbRead h o n
-    TableField DbWrite h o n Opt = Maybe (Field DbRead h o n)
-
-class Tableable a b | a -> b where
-    tableField :: String -> TableProperties a b
-
-instance Tableable (Column a) (Column a) where
-    tableField = required
-
-instance Tableable (Maybe (Column a)) (Column a) where
-    tableField = optional
+runRedis :: R.Redis a -> RatActionCtx a
+runRedis = S.runQuery . flip (R.runRedis . snd)
