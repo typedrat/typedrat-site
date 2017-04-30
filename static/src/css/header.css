@@ -38,11 +38,14 @@ body > header {
   color: var(--header-accent);
 }
 
-#header-lambda {
-  cursor: pointer;
+#header-username {
+
 }
 
-#header-lambda.active {
+#header-toggle {
+  cursor: pointer;
+}
+#header-toggle.active #header-lambda {
   color: var(--header-fg);
 }
 

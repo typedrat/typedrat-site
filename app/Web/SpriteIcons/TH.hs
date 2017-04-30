@@ -44,16 +44,16 @@ spritesFromJSON p = do
             let v = NormalB $ foldl AppE (ConE 'Octicon) [LitE $ StringL k, kw, p, w, h]
             return (ValD n v [] : ds)
 
-toSVGAtSize :: Octicon -> Float -> Float -> Html ()
+toSVGAtSize :: (Monad m) => Octicon -> Float -> Float -> HtmlT m ()
 toSVGAtSize Octicon{..} w h = svg_ [classes_ ["octicon",  "octicon-" `T.append` T.pack _octName], term "version" "1.1", width_ (T.pack $ show w), height_ (T.pack $ show h), term "aria-hidden" "true", term "viewBox" . T.pack $ unwords ["0 0", show _octWidth, show _octHeight]] $ toHtmlRaw _octPath
 
-toSVGAtWidth :: Octicon -> Float -> Html ()
+toSVGAtWidth :: (Monad m) => Octicon -> Float -> HtmlT m ()
 toSVGAtWidth o@Octicon{..} w = toSVGAtSize o w h
     where h = (fromIntegral _octHeight) * w / (fromIntegral _octWidth)
 
-toSVGAtHeight :: Octicon -> Float -> Html ()
+toSVGAtHeight :: (Monad m) => Octicon -> Float -> HtmlT m ()
 toSVGAtHeight o@Octicon{..} h = toSVGAtSize o w h
     where w = (fromIntegral _octWidth) * w / (fromIntegral _octHeight)
 
-toSVG :: Octicon -> Html ()
+toSVG :: (Monad m) => Octicon -> HtmlT m ()
 toSVG o@Octicon{..} = toSVGAtSize o (fromIntegral _octWidth) (fromIntegral _octHeight)

@@ -31,7 +31,7 @@ function setCommand(new_cmd) {
 document.addEventListener("DOMContentLoaded", function () {
     let login = document.getElementById("header-login");
 
-    document.getElementById("header-lambda").addEventListener("click", function () {
+    document.getElementById("header-toggle").addEventListener("click", function () {
         if (this.classList.contains("active"))
         {
             this.classList.remove("active");
