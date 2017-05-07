@@ -2,9 +2,8 @@ module Typedrat.Templates.Layout (layout) where
 
 import qualified Data.Text as T
 import Lucid
-import Typedrat.Types
 import qualified Web.SpriteIcons as SI
-import Web.SpriteIcons.TH (toSVG, toSVGAtWidth, toSVGAtHeight, toSVGAtSize)
+import Web.SpriteIcons.TH (toSVG)
 
 layout :: T.Text -> T.Text -> Html () -> Html () -> Html ()
 layout path cmd sidebar body = doctypehtml_ $ do

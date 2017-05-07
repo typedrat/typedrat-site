@@ -1,7 +1,5 @@
 module Typedrat.DB.Post
-    ( PGSlug
-    , pgSlug
-    , PostId(..)
+    ( PostId(..)
     , BlogPost(..)
     , blogPostTable
     , pgBlogPost
@@ -15,6 +13,7 @@ import Data.Profunctor
 import Data.Profunctor.Product
 import Data.Profunctor.Product.Default
 import Data.Profunctor.Product.TH
+import qualified Data.Set as S
 import Lucid
 import Opaleye
 import qualified Text.Pandoc as P
@@ -22,7 +21,6 @@ import Web.Slug
 
 import Typedrat.DB.Slug
 import Typedrat.DB.Types
-import Typedrat.DB.Utils
 
 --
 
@@ -78,6 +76,7 @@ renderPostBodyToHtml = fmap (toHtmlRaw . P.writeHtmlString htmlOptions) .
         markdownOpts = P.def
             { P.readerParseRaw = True
             , P.readerSmart = True
+            , P.readerExtensions = P.Ext_literate_haskell `S.insert` P.pandocExtensions
             }
         htmlOptions = P.def
             { P.writerHTMLMathMethod = P.MathJax ""

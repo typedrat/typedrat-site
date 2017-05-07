@@ -1,7 +1,6 @@
 {-# LANGUAGE TypeFamilyDependencies #-}
 module Typedrat.DB.Types (Hask, DbRead, DbWrite, Null, NotNull, Req, Opt, Field, TableField, Tableable(..)) where
 
-import Data.Profunctor
 import Opaleye
 
 data Hask

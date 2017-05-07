@@ -5,9 +5,7 @@ import qualified Data.Text as T
 import Data.Time
 import Lucid
 import Typedrat.DB
-import Typedrat.DB.Post
 import Typedrat.Routes
-import Typedrat.Types
 
 postList :: [(BlogPost Hask, Int64)] -> Html ()
 postList = ul_ [class_ "post-list"] . mapM_ (uncurry listItem)

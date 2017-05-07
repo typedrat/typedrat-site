@@ -1,12 +1,9 @@
 module Web.SpriteIcons.TH (spritesFromJSON, Octicon, toSVGAtSize, toSVGAtWidth, toSVGAtHeight, toSVG) where
 
-import Control.Monad
 import Data.Aeson
-import Data.Aeson.TH
 import qualified Data.ByteString.Lazy as BSL
 import Data.Char
 import qualified Data.Map as Map
-import Data.Maybe
 import qualified Data.Text as T
 import Language.Haskell.TH
 import Lucid
@@ -52,7 +49,7 @@ toSVGAtWidth o@Octicon{..} w = toSVGAtSize o w h
     where h = (fromIntegral _octHeight) * w / (fromIntegral _octWidth)
 
 toSVGAtHeight :: (Monad m) => Octicon -> Float -> HtmlT m ()
-toSVGAtHeight o@Octicon{..} h = toSVGAtSize o w h
+toSVGAtHeight o@Octicon{..} = toSVGAtSize o w
     where w = (fromIntegral _octWidth) * w / (fromIntegral _octHeight)
 
 toSVG :: (Monad m) => Octicon -> HtmlT m ()

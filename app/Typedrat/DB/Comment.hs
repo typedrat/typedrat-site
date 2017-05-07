@@ -1,18 +1,22 @@
-module Typedrat.DB.Comment (CommentId(..), Comment(..), pgComment, commentTable, commentQuery, commentsForPost, numCommentsForPost) where
+module Typedrat.DB.Comment (CommentId(..), Comment(..), pgComment, commentTable, commentQuery, postWithComments, postsWithCommentNums) where
 
 import Control.Arrow
+import Control.Monad
+import Data.Int
 import Data.Time.Clock
 import qualified Data.Text as T
-import Data.Text.Encoding
 import Data.Profunctor
 import Data.Profunctor.Product
 import Data.Profunctor.Product.Default
 import Data.Profunctor.Product.TH
 import Opaleye
-import qualified Text.Pandoc as P
+import Web.Slug
 
 import Typedrat.DB.Post
+import Typedrat.DB.Slug
 import Typedrat.DB.Types
+import Typedrat.DB.Utils
+import Typedrat.Types
 
 newtype CommentId a = CommentId { _unCommentId :: a }
                     deriving (Show, Eq, Functor)
@@ -64,3 +68,23 @@ numCommentsForPost BlogPost{..} = countRows $ proc () -> do
     comment@Comment{..} <- commentQuery -< ()
     restrict -< _commentPost .=== (pgInt4 <$> _postId)
     returnA -< comment
+
+--
+
+postWithComments :: Slug -> RatActionCtx (BlogPost Hask, [Comment Hask])
+postWithComments s = do
+    (post:_) <- oQuery $ proc () -> do
+            post@BlogPost{..} <- postQuery -< ()
+            restrict -< _postSlug .=== pgSlug s
+            returnA -< post
+    comments <- oQuery $ commentsForPost post
+
+    return (post, comments)
+
+postsWithCommentNums :: Int -> RatActionCtx [(BlogPost Hask, Int64)]
+postsWithCommentNums p = do
+    posts <- oQuery $ paginate (desc _postTime) 10 p postQuery
+
+    forM posts $ \p -> do
+        n <- fmap head . oQuery $ numCommentsForPost p
+        return (p, n)

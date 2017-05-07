@@ -1,9 +1,6 @@
 module Typedrat.Routes (postR, renderPostUrl) where
 
-import Data.HVect (HVect(..))
-import Data.Time
 import qualified Data.Text as T
-import Typedrat.DB
 import Typedrat.DB
 import Web.Routing.Combinators (PathState(..))
 import Web.Slug

@@ -5,7 +5,7 @@ module Typedrat.DB
     , Hask, DbRead, DbWrite, Null, NotNull, Req, Opt, Field, TableField, Tableable(..)
     , PGSlug, pgSlug
     , BlogPost(..), PostId(..), blogPostTable, postQuery, pgBlogPost
-    , Comment(..), CommentId(..), commentTable, commentQuery, pgComment, commentsForPost, numCommentsForPost
+    , Comment(..), CommentId(..), commentTable, commentQuery, pgComment, postWithComments, postsWithCommentNums
     , paginate
     ) where
 
@@ -16,4 +16,3 @@ import Typedrat.DB.Post
 import Typedrat.DB.Slug
 import Typedrat.DB.Types
 import Typedrat.DB.Utils
-import Typedrat.Types

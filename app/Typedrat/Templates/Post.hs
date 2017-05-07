@@ -5,10 +5,8 @@ import qualified Data.Text as T
 import Data.Time
 import Lucid
 import Typedrat.DB
-import Typedrat.DB.Comment
 import Typedrat.DB.Post
 import Typedrat.Routes
-import Typedrat.Types
 
 postTemplate :: BlogPost Hask -> [Comment Hask] -> Html ()
 postTemplate post@BlogPost{..} comments = article_ [class_ "post"] $ do
