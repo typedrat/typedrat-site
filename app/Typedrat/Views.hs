@@ -18,15 +18,16 @@ import Typedrat.Templates.PostList
 import Typedrat.Templates.Types
 import Typedrat.Types
 
-usernameVar :: RatActionCtx ctx st (TemplateVars '[TemplateVar "is_authenticated" Bool, TemplateVar "username" T.Text])
+usernameVar :: RatActionCtx ctx st (TemplateVars '[TemplateVar "is_administrator" Bool, TemplateVar "is_authenticated" Bool, TemplateVar "username" T.Text])
 usernameVar = do
     user <- userFromSession
     let username = case user of
-            Just User{ _userName = name } -> name
+            Just user -> _userName user
             Nothing -> "guest"
     return $ TVNil
         ::: (K :: Key "username") =: username
         ::: (K :: Key "is_authenticated") =: isJust user
+        ::: (K :: Key "is_administrator") =: (username == "typedrat")
 
 landing :: RatActionCtx ctx st ()
 landing = do

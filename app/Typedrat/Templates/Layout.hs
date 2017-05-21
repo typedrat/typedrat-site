@@ -1,5 +1,6 @@
 module Typedrat.Templates.Layout (layout) where
 
+import Control.Monad
 import qualified Data.Text as T
 import Lucid
 import qualified Web.SpriteIcons as SI
@@ -8,9 +9,16 @@ import Web.SpriteIcons.TH (toSVG)
 import Typedrat.Routes
 import Typedrat.Templates.Types
 
-layout :: (TVContains a "is_authenticated" Bool xs, TVContains b "username" T.Text xs, TVContains c "path" T.Text xs, TVContains d "command" T.Text xs) => RatTemplate xs () -> RatTemplate xs () -> RatTemplate xs ()
+layout ::
+    ( TVContains a "is_authenticated" Bool xs
+    , TVContains b "is_administrator" Bool xs
+    , TVContains c "username" T.Text xs
+    , TVContains d "path" T.Text xs
+    , TVContains e "command" T.Text xs
+    ) => RatTemplate xs () -> RatTemplate xs () -> RatTemplate xs ()
 layout sidebar body = doctypehtml_ $ do
     auth <- askVar (K :: Key "is_authenticated")
+    admin <- askVar (K :: Key "is_administrator")
     username <- askVar (K :: Key "username")
     path <- askVar (K :: Key "path")
     cmd <- askVar (K :: Key "command")
@@ -47,7 +55,10 @@ layout sidebar body = doctypehtml_ $ do
                 toHtml path
                 span_ [id_ "header-prompt"] " > "
                 span_ [id_ "header-command"] $ toHtml cmd
-            section_ [id_ "header-login"] $
+            section_ [id_ "header-login"] $ do
+                when admin $
+                    a_ [class_ "button", href_ $ renderRoute newPostR] "New post"
+
                 if not auth
                     then a_ [class_ "button", href_ $ renderRoute oauthRedirectR] $ do
                         toSVG SI.markGithub

@@ -26,7 +26,7 @@ body > header {
 .header {
   height: var(--header-height);
   line-height: var(--header-height);
-  padding-left: 0.5em;
+  padding: 0 0.5em;
   position: relative;
 
   color: var(--header-fg);
