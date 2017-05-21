@@ -16,6 +16,18 @@ layout sidebar body = doctypehtml_ $ do
     cmd <- askVar (K :: Key "command")
 
     head_ $ do
+        link_ [rel_ "apple-touch-icon-precomposed", sizes_ "57x57", href_ "https://typedr.at/static/img/apple-touch-icon-57x57.png"]
+        link_ [rel_ "apple-touch-icon-precomposed", sizes_ "114x114", href_ "https://typedr.at/static/img/apple-touch-icon-114x114.png"]
+        link_ [rel_ "apple-touch-icon-precomposed", sizes_ "72x72", href_ "https://typedr.at/static/img/apple-touch-icon-72x72.png"]
+        link_ [rel_ "apple-touch-icon-precomposed", sizes_ "144x144", href_ "https://typedr.at/static/img/apple-touch-icon-144x144.png"]
+        link_ [rel_ "apple-touch-icon-precomposed", sizes_ "120x120", href_ "https://typedr.at/static/img/apple-touch-icon-120x120.png"]
+        link_ [rel_ "apple-touch-icon-precomposed", sizes_ "152x152", href_ "https://typedr.at/static/img/apple-touch-icon-152x152.png"]
+        link_ [rel_ "icon", type_ "image/png", href_ "https://typedr.at/static/img/favicon-32x32.png", sizes_ "32x32"]
+        link_ [rel_ "icon", type_ "image/png", href_ "https://typedr.at/static/img/favicon-16x16.png", sizes_ "16x16"]
+        meta_ [name_ "application-name", content_ "typedr.at"]
+        meta_ [name_ "msapplication-TileColor", content_ "#FBFBFB"]
+        meta_ [name_ "msapplication-TileImage", content_ "https://typedr.at/static/img/mstile-144x144.png"]
+
         link_ [rel_ "stylesheet", href_ "/static/out/all.css"]
         script_ [src_ "/static/out/all.js"] ""
         script_ [src_ "https://use.typekit.net/gex0hqe.js"] ""
