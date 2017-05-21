@@ -42,15 +42,16 @@ spritesFromJSON p = do
             return (ValD n v [] : ds)
 
 toSVGAtSize :: (Monad m) => Octicon -> Float -> Float -> HtmlT m ()
-toSVGAtSize Octicon{..} w h = svg_ [classes_ ["octicon",  "octicon-" `T.append` T.pack _octName], term "version" "1.1", width_ (T.pack $ show w), height_ (T.pack $ show h), term "aria-hidden" "true", term "viewBox" . T.pack $ unwords ["0 0", show _octWidth, show _octHeight]] $ toHtmlRaw _octPath
+toSVGAtSize Octicon{..} w h = svg_ [classes_ ["octicon",  "octicon-" `T.append` T.pack _octName], term "version" "1.1", width_ (T.pack $ show w), height_ (T.pack $ show h), term "aria-hidden" "true", term "viewBox" . T.pack $ unwords ["0 0", show _octWidth, show _octHeight]]
+    $ toHtmlRaw _octPath
 
 toSVGAtWidth :: (Monad m) => Octicon -> Float -> HtmlT m ()
 toSVGAtWidth o@Octicon{..} w = toSVGAtSize o w h
     where h = (fromIntegral _octHeight) * w / (fromIntegral _octWidth)
 
 toSVGAtHeight :: (Monad m) => Octicon -> Float -> HtmlT m ()
-toSVGAtHeight o@Octicon{..} = toSVGAtSize o w
-    where w = (fromIntegral _octWidth) * w / (fromIntegral _octHeight)
+toSVGAtHeight o@Octicon{..} h = toSVGAtSize o w h
+    where w = (fromIntegral _octWidth) * h / (fromIntegral _octHeight)
 
 toSVG :: (Monad m) => Octicon -> HtmlT m ()
 toSVG o@Octicon{..} = toSVGAtSize o (fromIntegral _octWidth) (fromIntegral _octHeight)

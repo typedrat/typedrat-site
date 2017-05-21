@@ -4,9 +4,12 @@ module Typedrat.DB.Post
     , blogPostTable
     , pgBlogPost
     , postQuery
+    , postWithSlug
     , renderPostBodyToHtml
     ) where
 
+import Control.Arrow
+import Data.Maybe
 import Data.Time.Clock
 import qualified Data.Text as T
 import Data.Profunctor
@@ -21,6 +24,8 @@ import Web.Slug
 
 import Typedrat.DB.Slug
 import Typedrat.DB.Types
+import Typedrat.DB.Utils
+import Typedrat.Types
 
 --
 
@@ -67,9 +72,16 @@ pgBlogPost title slug body = BlogPost (PostId Nothing) (pgStrictText title) (pgS
 postQuery :: Query (BlogPost DbRead)
 postQuery = queryTable blogPostTable
 
+postWithSlug :: Slug -> RatActionCtx ctx st (Maybe (BlogPost Hask))
+postWithSlug s = fmap listToMaybe . oQuery $ proc () -> do
+    post@BlogPost{..} <- postQuery -< ()
+    restrict -< _postSlug .=== pgSlug s
+    returnA -< post
+
+
 --
 
-renderPostBodyToHtml :: BlogPost Hask -> Either P.PandocError (Html ())
+renderPostBodyToHtml :: (Monad m) => BlogPost Hask -> Either P.PandocError (HtmlT m ())
 renderPostBodyToHtml = fmap (toHtmlRaw . P.writeHtmlString htmlOptions) .
                        P.readMarkdown markdownOpts . T.unpack . _postBody
     where

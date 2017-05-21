@@ -113,7 +113,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0 !important;
 }
 
-.post-dateline
+.dateline
 {
   font-size: 0.8em;
   margin-bottom: 0.5rem;
@@ -133,6 +133,18 @@ h1, h2, h3, h4, h5, h6 {
 {
   margin-top: 0.5rem;
   padding-top: 0.3rem;
+}
+
+#comments .comment-avatar
+{
+  width: 48px;
+  margin-right: 0.25rem;
+}
+
+#comments .comment-author
+{
+  display: inline;
+
 }
 
 .octicon

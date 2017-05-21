@@ -7,10 +7,12 @@ import Lucid
 import Typedrat.DB
 import Typedrat.Routes
 
-postList :: [(BlogPost Hask, Int64)] -> Html ()
-postList = ul_ [class_ "post-list"] . mapM_ (uncurry listItem)
+import Typedrat.Templates.Types
+
+postList :: TVContains a "posts" [(BlogPost Hask, Int64)] xs => RatTemplate xs ()
+postList = askVar (K :: Key "posts") >>= ul_ [class_ "post-list"] . mapM_ (uncurry listItem)
     where
-        listItem :: BlogPost Hask -> Int64 -> Html ()
+        listItem :: BlogPost Hask -> Int64 -> RatTemplate ys ()
         listItem post numComments = li_ $ do
             a_ [href_ (renderPostUrl post)] . h1_ . toHtml . _postTitle $ post
             p_ [class_ "post-dateline"] $ do

@@ -1,4 +1,4 @@
-module Typedrat.Routes (postR, renderPostUrl) where
+module Typedrat.Routes (postR, renderPostUrl, postCommentR, oauthRedirectR, oauthCallbackR, logoutR, renderRoute) where
 
 import qualified Data.Text as T
 import Typedrat.DB
@@ -11,3 +11,15 @@ postR = "posts" <//> var
 
 renderPostUrl :: BlogPost Hask -> T.Text
 renderPostUrl BlogPost{ _postSlug = s } = renderRoute postR s
+
+postCommentR :: Path '[Slug] Open
+postCommentR = "posts" <//> var <//> "comment"
+
+oauthRedirectR :: Path '[] Open
+oauthRedirectR = "auth" <//> "redirect"
+
+oauthCallbackR :: Path '[] Open
+oauthCallbackR = "auth" <//> "callback"
+
+logoutR :: Path '[] Open
+logoutR = "auth" <//> "logout"

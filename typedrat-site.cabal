@@ -17,21 +17,24 @@ executable typedrat-site
   hs-source-dirs:      app
   main-is:             Main.hs
   other-modules:       Typedrat.App
-                     , Typedrat.Templates.Layout
-                     , Typedrat.Templates.Post
-                     , Typedrat.Templates.PostList
+                     , Typedrat.Auth
                      , Typedrat.DB
                      , Typedrat.DB.Comment
                      , Typedrat.DB.Post
                      , Typedrat.DB.Slug
                      , Typedrat.DB.Types
+                     , Typedrat.DB.User
                      , Typedrat.DB.Utils
                      , Typedrat.Routes
+                     , Typedrat.Templates.Layout
+                     , Typedrat.Templates.Post
+                     , Typedrat.Templates.PostList
+                     , Typedrat.Templates.Types
                      , Typedrat.Types
                      , Typedrat.Views
                      , Web.SpriteIcons
                      , Web.SpriteIcons.TH
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Wunused-imports
+  ghc-options:         -threaded -dynamic -rtsopts -with-rtsopts=-N -Wunused-imports
   build-depends:       base
                      , text
                      , bytestring
@@ -55,6 +58,11 @@ executable typedrat-site
                      , containers
                      , aeson
                      , template-haskell
+                     , lens
+                     , lens-aeson
+                     , http-types
+                     , wreq
+                     , mtl
   default-extensions:  OverloadedStrings
                      , ExtendedDefaultRules
                      , FlexibleContexts

@@ -68,7 +68,6 @@ body > header {
   height: var(--header-height);
   line-height: var(--header-height);
   margin-top: calc(-1 * var(--header-height));
-  width: 100%;
   padding-left: 0.5em;
   font-size: 1.25em;
   background: var(--header-accent);

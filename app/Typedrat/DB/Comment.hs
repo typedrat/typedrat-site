@@ -1,4 +1,4 @@
-module Typedrat.DB.Comment (CommentId(..), Comment(..), pgComment, commentTable, commentQuery, postWithComments, postsWithCommentNums) where
+module Typedrat.DB.Comment (CommentId(..), Comment(..), pgComment, commentTable, commentQuery, renderCommentBodyToHtml, postWithComments, postsWithCommentNums) where
 
 import Control.Arrow
 import Control.Monad
@@ -9,12 +9,16 @@ import Data.Profunctor
 import Data.Profunctor.Product
 import Data.Profunctor.Product.Default
 import Data.Profunctor.Product.TH
+import qualified Data.Set as S
+import Lucid
 import Opaleye
+import qualified Text.Pandoc as P
 import Web.Slug
 
 import Typedrat.DB.Post
 import Typedrat.DB.Slug
 import Typedrat.DB.Types
+import Typedrat.DB.User
 import Typedrat.DB.Utils
 import Typedrat.Types
 
@@ -25,6 +29,7 @@ $(makeAdaptorAndInstance' ''CommentId)
 
 data Comment a = Comment {
                  _commentId :: CommentId (TableField a Int PGInt4 NotNull Opt)
+               , _commentAuthor :: UserId (TableField a Int PGInt4 NotNull Req)
                , _commentPost :: PostId (TableField a Int PGInt4 NotNull Req)
                , _commentTime :: TableField a UTCTime PGTimestamptz NotNull Opt
                , _commentBody :: TableField a T.Text PGText NotNull Req
@@ -40,6 +45,7 @@ instance (Applicative (p (Comment a)), Profunctor p, ProductProfunctor p
     , Default p (TableField a UTCTime PGTimestamptz NotNull Opt) (TableField b UTCTime PGTimestamptz NotNull Opt)
     ) => Default p (Comment a) (Comment b) where
     def = Comment <$> dimap (_unCommentId . _commentId) CommentId def
+                  <*> dimap (_unUserId . _commentAuthor) UserId def
                   <*> dimap (_unPostId . _commentPost) PostId def
                   <*> lmap _commentTime def
                   <*> lmap _commentBody def
@@ -47,6 +53,7 @@ instance (Applicative (p (Comment a)), Profunctor p, ProductProfunctor p
 commentTable :: Table (Comment DbWrite) (Comment DbRead)
 commentTable = Table "comments" $ Comment
     <$> dimap (_unCommentId . _commentId) CommentId (tableField "id")
+    <*> dimap (_unUserId . _commentAuthor) UserId (tableField "author_id")
     <*> dimap (_unPostId . _commentPost) PostId (tableField "post_id")
     <*> lmap _commentTime (tableField "posted_at")
     <*> lmap _commentBody (tableField "body")
@@ -54,14 +61,16 @@ commentTable = Table "comments" $ Comment
 commentQuery :: Query (Comment DbRead)
 commentQuery = queryTable commentTable
 
-pgComment :: PostId Int -> T.Text -> Comment DbWrite
-pgComment pid body = Comment (CommentId Nothing) (pgInt4 <$> pid) Nothing (pgStrictText body)
+pgComment :: UserId Int -> PostId Int -> T.Text -> Comment DbWrite
+pgComment uid pid body = Comment (CommentId Nothing) (pgInt4 <$> uid) (pgInt4 <$> pid) Nothing (pgStrictText body)
 
-commentsForPost :: BlogPost Hask -> Query (Comment DbRead)
+commentsForPost :: BlogPost Hask -> Query (Comment DbRead, User DbRead)
 commentsForPost BlogPost{..} = proc () -> do
     comment@Comment{..} <- commentQuery -< ()
+    user@User{..} <- userQuery -< ()
     restrict -< _commentPost .=== (pgInt4 <$> _postId)
-    returnA -< comment
+    restrict -< _userId .=== _commentAuthor
+    returnA -< (comment, user)
 
 numCommentsForPost :: BlogPost Hask -> Query (Column PGInt8)
 numCommentsForPost BlogPost{..} = countRows $ proc () -> do
@@ -69,9 +78,25 @@ numCommentsForPost BlogPost{..} = countRows $ proc () -> do
     restrict -< _commentPost .=== (pgInt4 <$> _postId)
     returnA -< comment
 
+renderCommentBodyToHtml :: (Monad m) => Comment Hask -> Either P.PandocError (HtmlT m ())
+renderCommentBodyToHtml = fmap (toHtmlRaw . P.writeHtmlString htmlOptions) .
+                       P.readMarkdown markdownOpts . T.unpack . _commentBody
+    where
+        markdownOpts = P.def
+            { P.readerParseRaw = True
+            , P.readerSmart = True
+            , P.readerExtensions = P.Ext_literate_haskell `S.insert` P.pandocExtensions
+            }
+        htmlOptions = P.def
+            { P.writerHTMLMathMethod = P.MathJax ""
+            , P.writerHighlight = True
+            , P.writerHtml5 = True
+            }
+
+
 --
 
-postWithComments :: Slug -> RatActionCtx (BlogPost Hask, [Comment Hask])
+postWithComments :: Slug -> RatActionCtx ctx st (BlogPost Hask, [(Comment Hask, User Hask)])
 postWithComments s = do
     (post:_) <- oQuery $ proc () -> do
             post@BlogPost{..} <- postQuery -< ()
@@ -81,7 +106,7 @@ postWithComments s = do
 
     return (post, comments)
 
-postsWithCommentNums :: Int -> RatActionCtx [(BlogPost Hask, Int64)]
+postsWithCommentNums :: Int -> RatActionCtx ctx st [(BlogPost Hask, Int64)]
 postsWithCommentNums p = do
     posts <- oQuery $ paginate (desc _postTime) 10 p postQuery
 
