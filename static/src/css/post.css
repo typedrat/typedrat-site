@@ -85,7 +85,7 @@ ul.post-list {
   lost-column: 1;
 }
 
-form button
+form button, a.button
 {
   font-family: unset;
   font-size: 1.5rem;
@@ -94,15 +94,19 @@ form button
   border-style: solid;
   border-color: var(--accent-bg);
 
-
-  color: var(--accent-bg);
+  color: var(--accent-bg) !important;
+  fill: var(--accent-bg);
   background: unset;
 
   margin: 0.25em;
+  padding: 0 .3em;
+  display:inline-block;
+  line-height: 1.5;
 }
 
-form button:hover
+form button:hover, .button:hover
 {
-  color: var(--accent-fg);
+  color: var(--accent-fg) !important;
+  fill: var(--accent-fg);
   background: var(--accent-bg);
 }
