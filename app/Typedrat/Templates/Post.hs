@@ -4,6 +4,9 @@ import Control.Monad
 import qualified Data.Text as T
 import Data.Time
 import Lucid
+import qualified Web.SpriteIcons as SI
+import Web.SpriteIcons.TH (toSVG)
+
 import Typedrat.DB
 import Typedrat.DB.Post
 import Typedrat.Routes
@@ -40,19 +43,25 @@ postTemplate = article_ [class_ "post"] $ do
                 let Right body = renderCommentBodyToHtml c
                 body
 
-        when auth $ do
-            h2_ "Add Comment"
-            form_ [method_ "post", action_ (renderPostUrl post `T.append` "/comment")] $ do
-                textarea_ [name_ "body"] ""
-                section_ [class_ "preview-area"] $ do
-                    Just user <- askVar (K :: Key "user")
-                    a_ [href_ $ _userProfile user] $ do
-                        img_ [src_ $ _userAvatar user, class_ "comment-avatar"]
-                        h2_ [class_ "comment-author"] . toHtml $ _userName user
-                    section_ [class_ "markdown-preview"] ""
+        h2_ "Add Comment"
 
-                section_ [class_ "controls"] $ do
-                    aside_ $ do
-                        "Supports "
-                        a_ [href_ "http://pandoc.org/MANUAL.html#pandocs-markdown"] "Markdown with extensions"
-                    button_ [type_ "submit"] "Post"
+        if auth
+            then do
+                form_ [method_ "post", action_ (renderPostUrl post `T.append` "/comment")] $ do
+                    textarea_ [name_ "body"] ""
+                    section_ [class_ "preview-area"] $ do
+                        Just user <- askVar (K :: Key "user")
+                        a_ [href_ $ _userProfile user] $ do
+                            img_ [src_ $ _userAvatar user, class_ "comment-avatar"]
+                            h2_ [class_ "comment-author"] . toHtml $ _userName user
+                        section_ [class_ "markdown-preview"] ""
+
+                    section_ [class_ "controls"] $ do
+                        aside_ $ do
+                            "Supports "
+                            a_ [href_ "http://pandoc.org/MANUAL.html#pandocs-markdown"] "Markdown with extensions"
+                        button_ [type_ "submit"] "Post"
+            else
+                a_ [class_ "button", href_ $ renderRoute oauthRedirectR] $ do
+                    toSVG SI.markGithub
+                    "Log in with GitHub"
