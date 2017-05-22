@@ -31,6 +31,10 @@ app = prehook initHook $ do
 
         get logoutR logoutView
 
+        prehook adminHook $ do
+            get newPostR postEditorView
+            post newPostR addPostView
+
 runApp :: IO ()
 runApp = do
     let connection = do

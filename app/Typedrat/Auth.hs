@@ -1,5 +1,5 @@
 {-# LANGUAGE TypeOperators, LambdaCase #-}
-module Typedrat.Auth (Authenticated, userFromSession, authHook, redirectView, callbackView, logoutView) where
+module Typedrat.Auth (Authenticated, IsAdmin, userFromSession, authHook, adminHook, redirectView, callbackView, logoutView) where
 
 import Control.Lens
 import Control.Monad.IO.Class
@@ -58,6 +58,16 @@ authHook = do
             modifySession (\rs -> rs { _githubAuth = Nothing })
             setStatus unauthorized401
             bytes "Authentication required."
+
+adminHook :: ListContains n Authenticated xs => RatActionCtx (HVect xs) st (HVect (IsAdmin ': xs))
+adminHook = do
+    oldCtx <- getContext
+    Just User { _userName = name } <- userFromSession
+    if name == "typedrat"
+        then return (IsAdmin :&: oldCtx)
+        else do
+            setStatus unauthorized401
+            bytes "Administrator priviliges required."
 
 redirectView :: RatActionCtx ctx st ()
 redirectView = do
