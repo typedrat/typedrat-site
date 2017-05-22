@@ -72,7 +72,13 @@ postEditorView = do
     ratT tv' $ layout "" postEditorTemplate
 
 addPostView :: RatActionCtx ctx st ()
-addPostView = undefined
+addPostView = do
+    title <- param' "title"
+    body <- param' "body" :: RatActionCtx ctx st T.Text
+    let Just titleSlug = mkSlug title
+    let pgPost = pgBlogPost title titleSlug body
+    runPostgres $ \conn -> runInsertMany conn blogPostTable [pgPost]
+    redirect $ renderRoute postR titleSlug
 
 addCommentView :: ListContains n Authenticated xs => Slug -> RatActionCtx (HVect xs) st ()
 addCommentView s = postWithSlug s >>= \case

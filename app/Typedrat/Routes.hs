@@ -13,7 +13,7 @@ renderPostUrl :: BlogPost Hask -> T.Text
 renderPostUrl BlogPost{ _postSlug = s } = renderRoute postR s
 
 newPostR :: Path '[] Open
-newPostR = "posts" <//> "new"
+newPostR = "new_post"
 
 previewMarkdownR :: Path '[] Open
 previewMarkdownR = "preview_markdown"

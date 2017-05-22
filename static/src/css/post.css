@@ -56,19 +56,19 @@ ul.post-list {
 
 }
 
-#comments form
+#comments form, #new-post form
 {
   lost-center: 100%;
 }
 
-#comments textarea
+#comments textarea, #new-post textarea
 {
   lost-column: 2/5;
   height: 400px;
   font-family: "Fira Code", monospace;
 }
 
-#comments .preview
+#comments .preview, #new-post .preview
 {
   lost-column: 2/5;
   height: 400px;
@@ -80,12 +80,23 @@ ul.post-list {
   margin-top: 0.8em;
 }
 
-#comments .controls
+#comments .controls, #new-post .controls
 {
   lost-column: 1;
 }
 
-form button, #comments a.button
+#new-post input[name="title"]
+{
+  lost-column: 1;
+  font-size: 2em;
+  background: none;
+  border-width: 0;
+  border-bottom-width: 0.1em;
+  margin-bottom: 0.25em;
+  font-family: "Fira Code";
+}
+
+form button, #comments a.button, #new-post a.button
 {
   font-family: unset;
   font-size: 1.5rem;
@@ -98,13 +109,13 @@ form button, #comments a.button
   fill: var(--accent-bg);
   background: unset;
 
-  margin: 0.25em;
+  margin: 0.5em 0.25em;
   padding: 0 .3em;
   display:inline-block;
   line-height: 1.5;
 }
 
-form button:hover, #comments a.button:hover
+form button:hover, #comments a.button:hover, #new-post a.button:hover
 {
   color: var(--accent-fg) !important;
   fill: var(--accent-fg);
