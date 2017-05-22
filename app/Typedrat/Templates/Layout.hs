@@ -43,6 +43,7 @@ layout sidebar body = doctypehtml_ $ do
         script_ [src_ "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"] ""
         script_ [src_ "https://use.typekit.net/gex0hqe.js"] ""
         script_ [src_ "/static/out/all.js"] ""
+        script_ [src_ "/static/out/highlight.pack.js"] ""
 
         title_ . toHtml . T.concat $ [maybe "guest" _userName user, "@typedr.at:", path, "> ", cmd] -- "guest@typedr.at : ~ >"
 
