@@ -56,7 +56,7 @@ postTemplate = article_ [class_ "post"] $ do
                     section_ [class_ "preview-area"] $ do
                         Just user <- askVar (K :: Key "user")
                         a_ [href_ $ _userProfile user] $ do
-                            img_ [src_ $ _userAvatar user, class_ "comment-avatar"]
+                            img_ [src_ $ _userAvatar user, class_ "comment-avatar", width_ "48", height_ "48"]
                             h2_ [class_ "comment-author"] . toHtml $ _userName user
                         section_ [class_ "markdown-preview"] ""
 
