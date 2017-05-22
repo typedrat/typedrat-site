@@ -57,7 +57,6 @@ executable typedrat-site
                      , product-profunctors
                      , postgresql-simple
                      , opaleye
-                     , hedis
                      , containers
                      , aeson
                      , template-haskell

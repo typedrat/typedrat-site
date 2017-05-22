@@ -1,7 +1,6 @@
 module Typedrat.DB
     ( oQuery
     , runPostgres
-    , runRedis
     , Hask, DbRead, DbWrite, Null, NotNull, Req, Opt, Field, TableField, Tableable(..)
     , PGSlug, pgSlug
     , BlogPost(..), PostId(..), blogPostTable, postQuery, pgBlogPost, postWithSlug
@@ -9,8 +8,6 @@ module Typedrat.DB
     , User(..), UserId(..), userTable, userQuery, pgUser, clearAuthToken, userWithId, userWithToken
     , paginate
     ) where
-
-
 
 import Typedrat.DB.Comment
 import Typedrat.DB.Post
