@@ -1,0 +1,10 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": [">5% in US"]
+      }
+    }],
+    "babili"
+  ]
+}

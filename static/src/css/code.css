@@ -10,6 +10,11 @@ pre
   background: #2E231B;
 }
 
+code
+{
+  font-family: "Fira Code", monospace;
+}
+
 .hljs-keyword, .hljs-built_in, .hljs-bullet
 {
   color: #E784A2;
