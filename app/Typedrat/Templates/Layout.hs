@@ -40,7 +40,7 @@ layout sidebar body = doctypehtml_ $ do
         script_ [src_ "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js", async_ "true"] ""
         script_ [src_ "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML", async_ "true"] ""
         script_ [src_ "/static/out/highlight.pack.js", async_ "true"] ""
-        script_ [src_ "/static/out/all.js", async_ "true"] ""
+        script_ [src_ "/static/out/all.js", defer_ "true"] ""
         script_ "window.addEventListener('load', function () { hljs.initHighlighting(); });"
 
         link_ [rel_ "stylesheet", href_ "https://code.cdn.mozilla.net/fonts/fira.css"]
