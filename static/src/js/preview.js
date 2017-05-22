@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("load", function () {
     let previews = document.getElementsByClassName("preview-area");
     for (let i = 0; i < previews.length; i++)
     {
