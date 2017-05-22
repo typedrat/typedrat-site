@@ -1,0 +1,3 @@
+[submodule "static/MathJax"]
+	path = static/MathJax
+	url = https://github.com/mathjax/MathJax.git

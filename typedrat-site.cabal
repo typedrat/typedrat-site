@@ -65,6 +65,7 @@ executable typedrat-site
                      , http-types
                      , wreq
                      , mtl
+                     , read-env-var
   default-extensions:  OverloadedStrings
                      , ExtendedDefaultRules
                      , FlexibleContexts

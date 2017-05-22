@@ -19,7 +19,6 @@ gulp.task('css', function () {
 gulp.task('js', function () {
     return gulp.src('./static/src/js/*.js')
         .pipe(sourcemaps.init())
-        .pipe(babel({}))
         .pipe(concat('all.js'))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('./static/out/'));

@@ -39,11 +39,8 @@ layout sidebar body = doctypehtml_ $ do
 
         link_ [rel_ "stylesheet", href_ "/static/out/all.css"]
 
-        script_ [src_ "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"] ""
-        script_ [src_ "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"] ""
-        script_ [src_ "https://use.typekit.net/gex0hqe.js"] ""
-        script_ [src_ "/static/out/all.js"] ""
-        script_ [src_ "/static/out/highlight.pack.js"] ""
+        script_ [src_ "/static/MathJax/MathJax.js?config=TeX-AMS_CHTML", async_ "true"] ""
+        script_ [src_ "/static/out/all.js", async_ "true"] ""
 
         title_ . toHtml . T.concat $ [maybe "guest" _userName user, "@typedr.at:", path, "> ", cmd] -- "guest@typedr.at : ~ >"
 
@@ -79,4 +76,4 @@ layout sidebar body = doctypehtml_ $ do
                 sidebar
             body
 
-        script_ "try{Typekit.load({ async: true });}catch(e){}; hljs.initHighlightingOnLoad();"
+        script_ "hljs.initHighlightingOnLoad();"
