@@ -16,15 +16,14 @@ import Data.Profunctor
 import Data.Profunctor.Product
 import Data.Profunctor.Product.Default
 import Data.Profunctor.Product.TH
-import qualified Data.Set as S
 import Lucid
 import Opaleye
-import qualified Text.Pandoc as P
 import Web.Slug
 
 import Typedrat.DB.Slug
 import Typedrat.DB.Types
 import Typedrat.DB.Utils
+import Typedrat.Markup
 import Typedrat.Types
 
 --
@@ -81,17 +80,5 @@ postWithSlug s = fmap listToMaybe . oQuery $ proc () -> do
 
 --
 
-renderPostBodyToHtml :: (Monad m) => BlogPost Hask -> Either P.PandocError (HtmlT m ())
-renderPostBodyToHtml = fmap (toHtmlRaw . P.writeHtmlString htmlOptions) .
-                       P.readMarkdown markdownOpts . T.unpack . _postBody
-    where
-        markdownOpts = P.def
-            { P.readerParseRaw = True
-            , P.readerSmart = True
-            , P.readerExtensions = P.Ext_literate_haskell `S.insert` P.pandocExtensions
-            }
-        htmlOptions = P.def
-            { P.writerHTMLMathMethod = P.MathJax ""
-            , P.writerHighlight = True
-            , P.writerHtml5 = True
-            }
+renderPostBodyToHtml :: (Monad m) => BlogPost Hask -> Either PandocError (HtmlT m ())
+renderPostBodyToHtml = renderMarkdown . _postBody

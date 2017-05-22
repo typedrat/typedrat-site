@@ -17,12 +17,18 @@ initHook = return HNil
 app :: RatM st ()
 app = prehook initHook $ do
     get root landing
+
     get postR postView
+    getpost previewMarkdownR previewMarkdownView
+
     get oauthCallbackR callbackView
     get oauthRedirectR redirectView
+
     get ("static" <//> wildcard) $ \_ -> respondMiddleware S.static
+
     prehook authHook $ do
         post postCommentR addCommentView
+
         get logoutR logoutView
 
 runApp :: IO ()

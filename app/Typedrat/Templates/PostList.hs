@@ -1,4 +1,4 @@
-module Typedrat.Templates.PostList (postList) where
+module Typedrat.Templates.PostList (postListTemplate) where
 
 import Data.Int
 import qualified Data.Text as T
@@ -9,8 +9,8 @@ import Typedrat.Routes
 
 import Typedrat.Templates.Types
 
-postList :: TVContains a "posts" [(BlogPost Hask, Int64)] xs => RatTemplate xs ()
-postList = askVar (K :: Key "posts") >>= ul_ [class_ "post-list"] . mapM_ (uncurry listItem)
+postListTemplate :: TVContains a "posts" [(BlogPost Hask, Int64)] xs => RatTemplate xs ()
+postListTemplate = askVar (K :: Key "posts") >>= ul_ [class_ "post-list"] . mapM_ (uncurry listItem)
     where
         listItem :: BlogPost Hask -> Int64 -> RatTemplate ys ()
         listItem post numComments = li_ $ do

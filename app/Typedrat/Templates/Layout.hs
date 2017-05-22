@@ -7,19 +7,20 @@ import qualified Web.SpriteIcons as SI
 import Web.SpriteIcons.TH (toSVG)
 
 import Typedrat.Routes
+import Typedrat.DB
 import Typedrat.Templates.Types
 
 layout ::
     ( TVContains a "is_authenticated" Bool xs
     , TVContains b "is_administrator" Bool xs
-    , TVContains c "username" T.Text xs
+    , TVContains c "user" (Maybe (User Hask)) xs
     , TVContains d "path" T.Text xs
     , TVContains e "command" T.Text xs
     ) => RatTemplate xs () -> RatTemplate xs () -> RatTemplate xs ()
 layout sidebar body = doctypehtml_ $ do
     auth <- askVar (K :: Key "is_authenticated")
     admin <- askVar (K :: Key "is_administrator")
-    username <- askVar (K :: Key "username")
+    user <- askVar (K :: Key "user")
     path <- askVar (K :: Key "path")
     cmd <- askVar (K :: Key "command")
 
@@ -37,18 +38,18 @@ layout sidebar body = doctypehtml_ $ do
         meta_ [name_ "msapplication-TileImage", content_ "https://typedr.at/static/img/mstile-144x144.png"]
 
         link_ [rel_ "stylesheet", href_ "/static/out/all.css"]
-        script_ [src_ "/static/out/all.js"] ""
+        script_ [src_ "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"] ""
+        script_ [src_ "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"] ""
         script_ [src_ "https://use.typekit.net/gex0hqe.js"] ""
         script_ "try{Typekit.load({ async: true });}catch(e){}"
-        script_ [src_ "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"] ""
-        title_ . toHtml . T.concat $ [username, "@typedr.at:", path, "> ", cmd] -- "guest@typedr.at : ~ >"
+        title_ . toHtml . T.concat $ [maybe "guest" _userName user, "@typedr.at:", path, "> ", cmd] -- "guest@typedr.at : ~ >"
 
     body_ [class_ "light"] $ do
         header_ $ do
             section_ [class_ "header"] $ do
                 span_ [id_ "header-toggle"] $ do
                     span_ [id_ "header-lambda"] "λ "
-                    span_ [id_ "header-username"] $ toHtml username
+                    span_ [id_ "header-username"] . toHtml $ maybe "guest" _userName user
                 span_ [id_ "header-at"] "@"
                 a_ [href_ "/"] "typedr.at"
                 span_ [id_ "header-pathsep"] " : "
@@ -74,3 +75,5 @@ layout sidebar body = doctypehtml_ $ do
 
                 sidebar
             body
+
+        script_ [src_ "/static/out/all.js"] ""

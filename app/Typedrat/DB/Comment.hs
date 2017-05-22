@@ -9,10 +9,8 @@ import Data.Profunctor
 import Data.Profunctor.Product
 import Data.Profunctor.Product.Default
 import Data.Profunctor.Product.TH
-import qualified Data.Set as S
 import Lucid
 import Opaleye
-import qualified Text.Pandoc as P
 import Web.Slug
 
 import Typedrat.DB.Post
@@ -20,6 +18,7 @@ import Typedrat.DB.Slug
 import Typedrat.DB.Types
 import Typedrat.DB.User
 import Typedrat.DB.Utils
+import Typedrat.Markup
 import Typedrat.Types
 
 newtype CommentId a = CommentId { _unCommentId :: a }
@@ -78,21 +77,8 @@ numCommentsForPost BlogPost{..} = countRows $ proc () -> do
     restrict -< _commentPost .=== (pgInt4 <$> _postId)
     returnA -< comment
 
-renderCommentBodyToHtml :: (Monad m) => Comment Hask -> Either P.PandocError (HtmlT m ())
-renderCommentBodyToHtml = fmap (toHtmlRaw . P.writeHtmlString htmlOptions) .
-                       P.readMarkdown markdownOpts . T.unpack . _commentBody
-    where
-        markdownOpts = P.def
-            { P.readerParseRaw = True
-            , P.readerSmart = True
-            , P.readerExtensions = P.Ext_literate_haskell `S.insert` P.pandocExtensions
-            }
-        htmlOptions = P.def
-            { P.writerHTMLMathMethod = P.MathJax ""
-            , P.writerHighlight = True
-            , P.writerHtml5 = True
-            }
-
+renderCommentBodyToHtml :: (Monad m) => Comment Hask -> Either PandocError (HtmlT m ())
+renderCommentBodyToHtml = renderMarkdown . _commentBody
 
 --
 

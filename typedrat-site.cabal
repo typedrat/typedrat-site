@@ -25,9 +25,12 @@ executable typedrat-site
                      , Typedrat.DB.Types
                      , Typedrat.DB.User
                      , Typedrat.DB.Utils
+                     , Typedrat.Markup
                      , Typedrat.Routes
+                     , Typedrat.Templates
                      , Typedrat.Templates.Layout
                      , Typedrat.Templates.Post
+                     , Typedrat.Templates.PostEditor
                      , Typedrat.Templates.PostList
                      , Typedrat.Templates.Types
                      , Typedrat.Types

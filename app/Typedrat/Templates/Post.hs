@@ -9,7 +9,12 @@ import Typedrat.DB.Post
 import Typedrat.Routes
 import Typedrat.Templates.Types
 
-postTemplate :: (TVContains a "is_authenticated" Bool xs, TVContains b "post" (BlogPost Hask) xs, TVContains c "comments" [(Comment Hask, User Hask)] xs) => RatTemplate xs ()
+postTemplate ::
+    ( TVContains a "is_authenticated" Bool xs
+    , TVContains b "post" (BlogPost Hask) xs
+    , TVContains c "comments" [(Comment Hask, User Hask)] xs
+    , TVContains d "user" (Maybe (User Hask)) xs
+    ) => RatTemplate xs ()
 postTemplate = article_ [class_ "post"] $ do
     auth <- askVar (K :: Key "is_authenticated")
     post@BlogPost{..} <- askVar (K :: Key "post")
@@ -39,5 +44,15 @@ postTemplate = article_ [class_ "post"] $ do
             h2_ "Add Comment"
             form_ [method_ "post", action_ (renderPostUrl post `T.append` "/comment")] $ do
                 textarea_ [name_ "body"] ""
-                aside_ "Supports Markdown with extensions"
-                button_ [type_ "submit"] "Post"
+                section_ [class_ "preview-area"] $ do
+                    Just user <- askVar (K :: Key "user")
+                    a_ [href_ $ _userProfile user] $ do
+                        img_ [src_ $ _userAvatar user, class_ "comment-avatar"]
+                        h2_ [class_ "comment-author"] . toHtml $ _userName user
+                    section_ [class_ "markdown-preview"] ""
+
+                section_ [class_ "controls"] $ do
+                    aside_ $ do
+                        "Supports "
+                        a_ [href_ "http://pandoc.org/MANUAL.html#pandocs-markdown"] "Markdown with extensions"
+                    button_ [type_ "submit"] "Post"

@@ -92,59 +92,11 @@ body.dark {
   display: block;
 }
 
-ul.post-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.post-list article:not(:first-of-type), #comments article:not(:first-of-type) {
-  /* TODO: Figure out why PostCSS is eating combined border styles. */
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: var(--accent-bg);
-}
-
-
 h1, h2, h3, h4, h5, h6 {
   font-family: "clone-rounded-latin", monospace;
   font-weight: 200;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
-}
-
-.dateline
-{
-  font-size: 0.8em;
-  margin-bottom: 0.5rem;
-}
-
-.post p:first-of-type
-{
-  margin-top: 0;
-}
-
-#comments h1
-{
-  font-size: 1.5em;
-}
-
-#comments article
-{
-  margin-top: 0.5rem;
-  padding-top: 0.3rem;
-}
-
-#comments .comment-avatar
-{
-  width: 48px;
-  margin-right: 0.25rem;
-}
-
-#comments .comment-author
-{
-  display: inline;
-
 }
 
 .octicon
