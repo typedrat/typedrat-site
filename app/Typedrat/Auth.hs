@@ -99,7 +99,7 @@ callbackView = do
     let name = user ^. responseBody . key "login" . _String
     let profile = user ^. responseBody . key "html_url" . _String
     let avatar = user ^. responseBody . key "avatar_url" . _String
-    let dbUser = pgUser id' name (Just tok) profile avatar
+    let dbUser = pgUser id' name (Just tok) profile (avatar `T.append` "&s=48")
 
     old <- userWithId $ UserId id'
 
