@@ -16,6 +16,6 @@ renderMarkdown = fmap (toHtmlRaw . P.writeHtmlString htmlOptions) .
             }
         htmlOptions = P.def
             { P.writerHTMLMathMethod = P.MathJax ""
-            , P.writerHighlight = True
+            , P.writerHighlight = False
             , P.writerHtml5 = True
             }

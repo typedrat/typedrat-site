@@ -1,0 +1,82 @@
+pre
+{
+  font-family: "Fira Code", monospace;
+  display: inline-block;
+  padding: 1em;
+  border-radius: 1em;
+  white-space: pre-wrap;
+
+  color: #EFEEF1;
+  background: #2E231B;
+}
+
+.hljs-keyword, .hljs-built_in, .hljs-bullet
+{
+  color: #E784A2;
+  font-weight: bold;
+}
+
+.hljs-regexp, .hljs-doctag, .hljs-meta
+{
+  color: #A082BD;
+}
+
+.hljs-type, .hljs-literal, .hljs-symbol, .hljs-class, .hljs-title, .hljs-attribute
+{
+  color: #6CA3C9;
+}
+
+.hljs-number, .hljs-subst
+{
+  color: #FFCD22;
+}
+
+.hljs-string
+{
+  color: #EC7600;
+}
+
+.hljs-comment
+{
+  color: #7D8C93;
+}
+
+.hljs-meta-keyword
+{
+  font-weight: bold;
+}
+
+.hljs-tag
+{
+  color: #E8E2B7;
+}
+
+.hljs-name
+{
+  color: #E784A2;
+}
+
+.hljs-emphasis
+{
+  font-style: italic;
+}
+
+.hljs-strong
+{
+  font-weight: bold;
+}
+
+.hljs-formula, .hljs-quotation, .hljs-link
+{
+  color: #B24FCB;
+}
+
+.hljs-addition
+{
+  background-color: #294436;
+}
+
+.hljs-deletion
+{
+  background-color: #45302B;
+}

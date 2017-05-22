@@ -65,13 +65,19 @@ ul.post-list {
 {
   lost-column: 2/5;
   height: 400px;
-  font-family: "clone-rounded-latin", monospace;
+  font-family: "Fira Code", monospace;
 }
 
 #comments .preview
 {
   lost-column: 2/5;
   height: 400px;
+  overflow: scroll;
+}
+
+.markdown-preview
+{
+  margin-top: 0.8em;
 }
 
 #comments .controls

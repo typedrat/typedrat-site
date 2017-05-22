@@ -19,7 +19,7 @@ body > header {
   background-color: var(--header-bg);
   box-shadow: 0 2px 2px 0 color(black alpha(25%));
 
-  font-family: "clone-rounded-latin", monospace;
+  font-family: "Fira Code", monospace;
   font-weight: 200;
 }
 
@@ -87,7 +87,7 @@ body > header {
   padding: 0 0.3em;
   color: var(--header-fg);
   fill: var(--header-fg);
-  font-family: "clone-rounded-latin", monospace;
+  font-family: "Fira Code", monospace;
   font-weight: 200;
 
 }

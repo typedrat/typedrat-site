@@ -38,10 +38,12 @@ layout sidebar body = doctypehtml_ $ do
         meta_ [name_ "msapplication-TileImage", content_ "https://typedr.at/static/img/mstile-144x144.png"]
 
         link_ [rel_ "stylesheet", href_ "/static/out/all.css"]
+
         script_ [src_ "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"] ""
         script_ [src_ "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"] ""
         script_ [src_ "https://use.typekit.net/gex0hqe.js"] ""
-        script_ "try{Typekit.load({ async: true });}catch(e){}"
+        script_ [src_ "/static/out/all.js"] ""
+
         title_ . toHtml . T.concat $ [maybe "guest" _userName user, "@typedr.at:", path, "> ", cmd] -- "guest@typedr.at : ~ >"
 
     body_ [class_ "light"] $ do
@@ -76,4 +78,4 @@ layout sidebar body = doctypehtml_ $ do
                 sidebar
             body
 
-        script_ [src_ "/static/out/all.js"] ""
+        script_ "try{Typekit.load({ async: true });}catch(e){}; hljs.initHighlightingOnLoad();"

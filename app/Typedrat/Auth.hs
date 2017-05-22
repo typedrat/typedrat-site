@@ -51,13 +51,13 @@ authHook :: RatActionCtx (HVect xs) st (HVect (Authenticated ': xs))
 authHook = do
     oldCtx <- getContext
     mUser <- userFromSession
-    valid <- maybe (return False) verifyUser mUser
-    if isJust mUser && valid
+--    valid <- maybe (return False) verifyUser mUser
+    if isJust mUser -- && valid
         then return (Authenticated :&: oldCtx)
         else do
             modifySession (\rs -> rs { _githubAuth = Nothing })
             setStatus unauthorized401
-            bytes ""
+            bytes "Authentication required."
 
 redirectView :: RatActionCtx ctx st ()
 redirectView = do
