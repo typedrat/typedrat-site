@@ -40,7 +40,10 @@ layout sidebar body = doctypehtml_ $ do
         link_ [rel_ "stylesheet", href_ "/static/out/all.css"]
 
         script_ [src_ "/static/MathJax/MathJax.js?config=TeX-AMS_CHTML", async_ "true"] ""
+        script_ [src_ "/static/out/underscore-min.js", async_ "true"] ""
+        script_ [src_ "/static/out/highlight.pack.js", async_ "true"] ""
         script_ [src_ "/static/out/all.js", async_ "true"] ""
+        script_ "window.addEventListener('load', function () { hljs.initHighlighting(); });"
 
         title_ . toHtml . T.concat $ [maybe "guest" _userName user, "@typedr.at:", path, "> ", cmd] -- "guest@typedr.at : ~ >"
 
@@ -75,5 +78,3 @@ layout sidebar body = doctypehtml_ $ do
 
                 sidebar
             body
-
-        script_ "hljs.initHighlightingOnLoad();"
