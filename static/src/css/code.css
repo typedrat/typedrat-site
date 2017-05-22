@@ -17,7 +17,7 @@ code
 
 .hljs-keyword, .hljs-built_in, .hljs-bullet, .hljs-tag
 {
-  color: #E784A2;
+  color: #FE728B;
   font-weight: bold;
 }
 
@@ -27,9 +27,9 @@ code
   color: #A082BD;
 }
 
-.hljs-string
+.hljs-string, .hljs-number
 {
-  color: #A56E5F;
+  color: #EA88B9;
 }
 
 .hljs-type, .hljs-literal, .hljs-symbol, .hljs-class, .hljs-attribute
@@ -47,9 +47,9 @@ code
   font-weight: bold;
 }
 
-.hljs-title, .hljs-name, .hljs-number, .hljs-subst
+.hljs-title, .hljs-name, .hljs-subst
 {
-  color: #E784A2;
+  color: #FE728B;
 }
 
 .hljs-emphasis
