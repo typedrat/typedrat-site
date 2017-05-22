@@ -15,30 +15,26 @@ code
   font-family: "Fira Code", monospace;
 }
 
-.hljs-keyword, .hljs-built_in, .hljs-bullet
+.hljs-keyword, .hljs-built_in, .hljs-bullet, .hljs-tag
 {
   color: #E784A2;
   font-weight: bold;
 }
 
 .hljs-regexp, .hljs-doctag, .hljs-meta
+
 {
   color: #A082BD;
 }
 
-.hljs-type, .hljs-literal, .hljs-symbol, .hljs-class, .hljs-title, .hljs-attribute
-{
-  color: #6CA3C9;
-}
-
-.hljs-number, .hljs-subst
-{
-  color: #FFCD22;
-}
-
 .hljs-string
 {
-  color: #EC7600;
+  color: #A56E5F;
+}
+
+.hljs-type, .hljs-literal, .hljs-symbol, .hljs-class, .hljs-attribute
+{
+  color: #C092CE;
 }
 
 .hljs-comment
@@ -46,17 +42,12 @@ code
   color: #7D8C93;
 }
 
-.hljs-meta-keyword
+.hljs-meta-keyword, .hljs-strong
 {
   font-weight: bold;
 }
 
-.hljs-tag
-{
-  color: #E8E2B7;
-}
-
-.hljs-name
+.hljs-title, .hljs-name, .hljs-number, .hljs-subst
 {
   color: #E784A2;
 }
@@ -64,11 +55,6 @@ code
 .hljs-emphasis
 {
   font-style: italic;
-}
-
-.hljs-strong
-{
-  font-weight: bold;
 }
 
 .hljs-formula, .hljs-quotation, .hljs-link
