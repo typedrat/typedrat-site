@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (xhr.status == 200)
                     {
                         preview.lastChild.innerHTML = xhr.responseXML.firstElementChild.lastChild.innerHTML;
-                        MathJax.Hub.Queue(["Typeset", MathJax.Hub, preview.lastChild]);
+                        renderMathInElement(preview.lastChild);
 
                         let codeblocks = preview.lastChild.getElementsByTagName("pre");
                         for (let i = 0; i < codeblocks.length; i++)

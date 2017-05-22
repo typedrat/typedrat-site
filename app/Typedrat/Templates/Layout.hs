@@ -38,12 +38,14 @@ layout sidebar body = doctypehtml_ $ do
         meta_ [name_ "msapplication-TileImage", content_ "https://typedr.at/static/img/mstile-144x144.png"]
 
         script_ [src_ "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js", async_ "true"] ""
-        script_ [src_ "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML", async_ "true"] ""
+        script_ [src_ "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js", async_ "true"] ""
+        script_ [src_ "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js", async_ "true"] ""
         script_ [src_ "/static/out/highlight.pack.js", async_ "true"] ""
         script_ [src_ "/static/out/all.js", defer_ "true"] ""
-        script_ "window.addEventListener('load', function () { hljs.initHighlighting(); });"
+        script_ "window.addEventListener('load', function () { hljs.initHighlighting(); renderMathInElement(document.body); });"
 
         link_ [rel_ "stylesheet", href_ "https://code.cdn.mozilla.net/fonts/fira.css"]
+        link_ [rel_ "stylesheet", href_ "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css"]
         link_ [rel_ "stylesheet", href_ "/static/out/all.css"]
 
         title_ . toHtml . T.concat $ [maybe "guest" _userName user, "@typedr.at:", path, "> ", cmd] -- "guest@typedr.at : ~ >"
