@@ -1,11 +1,24 @@
-document.addEventListener("load", function () {
+function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+        var context = this, args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        }, wait);
+        if (immediate && !timeout) func.apply(context, args);
+    };
+}
+
+document.addEventListener("DOMContentLoaded", function () {
     let previews = document.getElementsByClassName("preview-area");
     for (let i = 0; i < previews.length; i++)
     {
         let preview = previews[i];
 
         let source = preview.parentNode.getElementsByTagName("textarea")[0];
-        source.addEventListener("keyup", _.debounce(function () {
+        source.addEventListener("keyup", debounce(function () {
             var xhr = new XMLHttpRequest;
             xhr.responseType = "document";
             xhr.open("POST", "/preview_markdown", true);
