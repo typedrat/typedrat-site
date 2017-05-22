@@ -85,7 +85,7 @@ ul.post-list {
   lost-column: 1;
 }
 
-form button, a.button
+form button, #comments a.button
 {
   font-family: unset;
   font-size: 1.5rem;
@@ -104,7 +104,7 @@ form button, a.button
   line-height: 1.5;
 }
 
-form button:hover, .button:hover
+form button:hover, #comments a.button:hover
 {
   color: var(--accent-fg) !important;
   fill: var(--accent-fg);
