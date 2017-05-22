@@ -64,7 +64,7 @@ pgComment :: UserId Int -> PostId Int -> T.Text -> Comment DbWrite
 pgComment uid pid body = Comment (CommentId Nothing) (pgInt4 <$> uid) (pgInt4 <$> pid) Nothing (pgStrictText body)
 
 commentsForPost :: BlogPost Hask -> Query (Comment DbRead, User DbRead)
-commentsForPost BlogPost{..} = proc () -> do
+commentsForPost BlogPost{..} = orderBy (asc $ _commentTime . fst) $ proc () -> do
     comment@Comment{..} <- commentQuery -< ()
     user@User{..} <- userQuery -< ()
     restrict -< _commentPost .=== (pgInt4 <$> _postId)

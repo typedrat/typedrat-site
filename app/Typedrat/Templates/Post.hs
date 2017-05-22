@@ -4,6 +4,7 @@ import Control.Monad
 import qualified Data.Text as T
 import Data.Time
 import Lucid
+import System.IO.Unsafe
 import qualified Web.SpriteIcons as SI
 import Web.SpriteIcons.TH (toSVG)
 
@@ -11,6 +12,9 @@ import Typedrat.DB
 import Typedrat.DB.Post
 import Typedrat.Routes
 import Typedrat.Templates.Types
+
+localizeTime :: UTCTime -> LocalTime
+localizeTime t = utcToLocalTime (unsafePerformIO $ getTimeZone t) t
 
 postTemplate ::
     ( TVContains a "is_authenticated" Bool xs
@@ -25,7 +29,7 @@ postTemplate = article_ [class_ "post"] $ do
 
     a_ [href_ (renderPostUrl post)] . h1_ . toHtml $ _postTitle
     p_ [class_ "post-dateline"] $ do
-        toHtml . formatTime defaultTimeLocale "%B %e, %Y" $ _postTime
+        toHtml . formatTime defaultTimeLocale "%B %e, %Y at %l:%M %p" $ localizeTime _postTime
         " – "
         a_ [href_ $ renderPostUrl post `T.append` "#comments"] . toHtml $
             show (length comments) ++ " comments"
@@ -39,7 +43,7 @@ postTemplate = article_ [class_ "post"] $ do
                 a_ [href_ _userProfile] $ do
                     img_ [src_ _userAvatar, class_ "comment-avatar"]
                     h2_ [class_ "comment-author"] $ toHtml _userName
-                p_ [class_ "dateline"] . toHtml . formatTime defaultTimeLocale "%B %e, %Y" $ _commentTime
+                p_ [class_ "dateline"] . toHtml . formatTime defaultTimeLocale "%B %e, %Y at %l:%M %p" $ localizeTime _commentTime
                 let Right body = renderCommentBodyToHtml c
                 body
 
