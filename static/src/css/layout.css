@@ -94,8 +94,8 @@ body.dark {
 h1, h2, h3, h4, h5, h6 {
   font-family: "Fira Code", monospace;
   font-weight: 200;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .octicon
