@@ -31,6 +31,11 @@
 #comments h1
 {
   font-size: 1.5em;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--accent-bg);
+  margin-bottom: 1em;
+
 }
 
 #comments article
