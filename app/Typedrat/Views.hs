@@ -74,7 +74,7 @@ postEditorView = do
 addPostView :: RatActionCtx ctx st ()
 addPostView = do
     title <- param' "title"
-    body <- param' "body" :: RatActionCtx ctx st T.Text
+    body <- T.filter (/= '\r') <$> param' "body" -- CR seems to break Lucid. :(
     let Just titleSlug = mkSlug title
     let pgPost = pgBlogPost title titleSlug body
     runPostgres $ \conn -> runInsertMany conn blogPostTable [pgPost]
