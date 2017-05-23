@@ -67,7 +67,7 @@ body.dark {
     lost-column: 1/4;
   }
 
-  .body > section , .body > article  {
+  .body > section, .body > article {
     lost-column: 3/4;
   }
 }
@@ -77,7 +77,7 @@ body.dark {
     lost-column: 1/6;
   }
 
-  .body > section , .body > article  {
+  .body > section, .body > article {
     lost-column: 5/6;
   }
 }
