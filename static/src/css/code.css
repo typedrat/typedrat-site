@@ -17,29 +17,29 @@ code
 
 .hljs-keyword, .hljs-built_in, .hljs-bullet, .hljs-tag
 {
-  color: #FE728B;
+  color: google-color(pink, 300);
   font-weight: bold;
 }
 
 .hljs-regexp, .hljs-doctag, .hljs-meta
 
 {
-  color: #A082BD;
+  color: google-color(deep-purple, 300);
 }
 
 .hljs-string, .hljs-number
 {
-  color: #EA88B9;
+  color: google-color(pink, 200);
 }
 
 .hljs-type, .hljs-literal, .hljs-symbol, .hljs-class, .hljs-attribute
 {
-  color: #C092CE;
+  color: google-color(purple, 200);
 }
 
 .hljs-comment
 {
-  color: #7D8C93;
+  color: google-color(grey, 500);
 }
 
 .hljs-meta-keyword, .hljs-strong
@@ -49,7 +49,7 @@ code
 
 .hljs-title, .hljs-name, .hljs-subst
 {
-  color: #FE728B;
+  color: google-color(pink, 300);
 }
 
 .hljs-emphasis
@@ -59,7 +59,7 @@ code
 
 .hljs-formula, .hljs-quotation, .hljs-link
 {
-  color: #B24FCB;
+  color: google-color(deep-purple, 400);
 }
 
 .hljs-addition
