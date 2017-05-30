@@ -33,12 +33,12 @@ body.dark {
   color: var(--dark-fg);
 }
 
-.light a:visited, .dark a {
+.light > *:not(header) a:visited, .dark a {
   color: var(--accent-fg);
   text-decoration: none;
 }
 
-.light a, .dark a:visited {
+.light a, .dark > *:not(header) a:visited {
   color: google-color(pink, 300);
   text-decoration: none;
 }
