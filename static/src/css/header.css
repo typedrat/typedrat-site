@@ -108,10 +108,18 @@ footer p {
   margin-bottom: 0;
 }
 
-footer a {
+.light footer a {
+  color: google-color(pink, 50) !important;
+}
+
+.light footer a:visited {
   color: google-color(pink, 200) !important;
 }
 
-footer a:visited {
-  color: google-color(pink, 300) !important;
+.dark footer a {
+  color: google-color(pink, 900) !important;
+}
+
+.dark footer a:visited {
+  color: google-color(pink, 200) !important;
 }
