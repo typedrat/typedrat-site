@@ -68,6 +68,7 @@
   resize: none;
   border: none;
   color: inherit;
+  padding: 0.5em;
 }
 
 .light #comments textarea, .light #new-post textarea
