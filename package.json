@@ -17,6 +17,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-postcss": "^6.3.0",
     "gulp-sourcemaps": "^2.4.1",
+    "gulp-watch": "^4.3.11",
     "lost": "^8.0.0",
     "postcss-cssnext": "^2.9.0",
     "postcss-custom-media": "^5.0.1",
