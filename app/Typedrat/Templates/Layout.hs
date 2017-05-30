@@ -78,3 +78,12 @@ layout body = doctypehtml_ $ do
                 h1_ "Alexis Williams"
                 h2_ "Student, Haskell aficionado, programming sell-sword."
             body
+        footer_ $ do
+            "© 2017 Alexis Williams."
+            p_ $ do
+                a_ [href_ "https://github.com/typedrat/typedrat-site"] "This site's code"
+                " is under the terms of the "
+                a_ [href_ "https://choosealicense.com/licenses/gpl-3.0/"] "GNU General Public License v3.0"
+                ". The content of this site is under the terms of the "
+                a_ [href_ "https://choosealicense.com/licenses/mit/"] "MIT License"
+                ", except for code excerpts from existing projects, which maintain the same licensing as the original project from which they were extracted."

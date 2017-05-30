@@ -14,6 +14,9 @@
 body {
   font-family: "Fira Sans", sans-serif;
   min-width: 320px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 ::selection {
@@ -41,6 +44,7 @@ body.dark {
 }
 
 .body {
+  flex: 1;
   lost-center: 95%;
   padding-top: 2.5vw;
 }

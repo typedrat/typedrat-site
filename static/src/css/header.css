@@ -89,7 +89,6 @@ body > header {
   fill: var(--header-fg);
   font-family: "Fira Code", monospace;
   font-weight: 200;
-
 }
 
 #header-login .button:hover {
@@ -97,4 +96,22 @@ body > header {
   border-color: var(--header-accent);
   color: var(--header-accent);
   fill: var(--header-accent);
+}
+
+footer {
+  background-color: var(--header-bg);
+  padding: 1em;
+  font-size: 0.8em;
+}
+
+footer p {
+  margin-bottom: 0;
+}
+
+footer a {
+  color: google-color(pink, 200) !important;
+}
+
+footer a:visited {
+  color: google-color(pink, 300) !important;
 }
