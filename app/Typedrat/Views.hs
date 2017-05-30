@@ -37,7 +37,7 @@ landing = do
             ::: (K :: Key "command") =: "ls"
             ::: (K :: Key "posts") =: posts
 
-    ratT tv' $ layout "" postListTemplate
+    ratT tv' $ layout postListTemplate
 
 postView :: Slug -> RatActionCtx ctx st ()
 postView s = do
@@ -49,7 +49,7 @@ postView s = do
             ::: (K :: Key "post") =: post
             ::: (K :: Key "comments") =: comments
 
-    ratT tv' $ layout "" postTemplate
+    ratT tv' $ layout postTemplate
 
 previewMarkdownView :: RatActionCtx ctx st ()
 previewMarkdownView = do
@@ -69,7 +69,7 @@ postEditorView = do
             ::: (K :: Key "path") =: "~/posts"
             ::: (K :: Key "command") =: "nano"
 
-    ratT tv' $ layout "" postEditorTemplate
+    ratT tv' $ layout postEditorTemplate
 
 addPostView :: RatActionCtx ctx st ()
 addPostView = do

@@ -16,8 +16,8 @@ layout ::
     , TVContains c "user" (Maybe (User Hask)) xs
     , TVContains d "path" T.Text xs
     , TVContains e "command" T.Text xs
-    ) => RatTemplate xs () -> RatTemplate xs () -> RatTemplate xs ()
-layout sidebar body = doctypehtml_ $ do
+    ) => RatTemplate xs () -> RatTemplate xs ()
+layout body = doctypehtml_ $ do
     auth <- askVar (K :: Key "is_authenticated")
     admin <- askVar (K :: Key "is_administrator")
     user <- askVar (K :: Key "user")
@@ -76,7 +76,5 @@ layout sidebar body = doctypehtml_ $ do
             aside_ $ do
                 img_ [src_ "/static/img/headshot.png"]
                 h1_ "Alexis Williams"
-                p_ "Doing things, for some reason."
-
-                sidebar
+                h2_ "Student, Haskell aficionado, programming sell-sword."
             body
