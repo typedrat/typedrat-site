@@ -65,6 +65,19 @@
   lost-column: 2/5;
   height: 400px;
   font-family: "Fira Code", monospace;
+  resize: none;
+  border: none;
+  color: inherit;
+}
+
+.light #comments textarea, .light #new-post textarea
+{
+  background-color: google-color(grey, 100);
+}
+
+.dark #comments textarea, .dark #new-post textarea
+{
+  background-color: google-color(grey, 800);
 }
 
 #comments .preview, #new-post .preview
