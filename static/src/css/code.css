@@ -6,7 +6,7 @@ pre
   border-radius: 1em;
   white-space: pre-wrap;
 
-  color: #EFEEF1;
+  color: google-color(grey, 50);
   background: google-color(grey, 800);
 }
 

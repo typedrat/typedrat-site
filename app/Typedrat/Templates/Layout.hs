@@ -57,9 +57,9 @@ layout body = doctypehtml_ $ do
                     span_ [id_ "header-username"] . toHtml $ maybe "guest" _userName user
                 span_ [id_ "header-at"] "@"
                 a_ [href_ "/"] "typedr.at"
-                span_ [id_ "header-pathsep"] " : "
+                span_ [id_ "header-pathsep"] ":"
                 toHtml path
-                span_ [id_ "header-prompt"] " > "
+                span_ [id_ "header-prompt"] "> "
                 span_ [id_ "header-command"] $ toHtml cmd
             section_ [id_ "header-login"] $ do
                 when admin $
